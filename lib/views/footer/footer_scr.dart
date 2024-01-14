@@ -4,8 +4,8 @@ import 'package:admin_portfolio/widgets/app_button.dart';
 import 'package:admin_portfolio/widgets/app_text_field.dart';
 import 'package:flutter/material.dart';
 
-class ContactScreen extends StatelessWidget {
-  const ContactScreen({super.key});
+class FooterScreen extends StatelessWidget {
+  const FooterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class ContactScreen extends StatelessWidget {
       backgroundColor: AppColors.scaffoldBg,
       appBar: AppBar(
         backgroundColor: AppColors.scaffoldBg,
-        title: const Text("Contact"),
+        title: const Text("Footer"),
         centerTitle: false,
       ),
       body: ListView(
@@ -25,26 +25,8 @@ class ContactScreen extends StatelessWidget {
               child: Padding(
                   padding: const EdgeInsets.all(AppSizes.bodyPadding),
                   child: Column(children: [
-                    const AppTextField(label: "Get in touch", hint: "Enter your get in touch"),
-                    const SizedBox(
-                      height: AppSizes.bodyPadding,
-                    ),
-                    const AppTextField(label: "Email", hint: "Enter your email",),
-                    const SizedBox(
-                      height: AppSizes.bodyPadding,
-                    ),
-                    const AppTextField(label: "Github Url", hint: "Enter your github url"),
-                    const SizedBox(
-                      height: AppSizes.bodyPadding,
-                    ),
-                    const AppTextField(label: "LinkedIn Url", hint: "Enter your linkedIn url"),
-                    const SizedBox(
-                      height: AppSizes.bodyPadding,
-                    ),
-                    const AppTextField(label: "Stack Overflow Url", hint: "Enter your stack overflow url"),
-                    const SizedBox(
-                      height: AppSizes.bodyPadding,
-                    ),
+                    const AppTextField(label: "Develop by", hint: "Enter your developer"),
+
 
                     const SizedBox(
                       height: AppSizes.bodyPadding*3,

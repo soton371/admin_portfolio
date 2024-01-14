@@ -4,6 +4,7 @@ import 'package:admin_portfolio/configs/app_text_style.dart';
 import 'package:admin_portfolio/views/about/about_scr.dart';
 import 'package:admin_portfolio/views/contacts/contact_scr.dart';
 import 'package:admin_portfolio/views/experience/experience_scr.dart';
+import 'package:admin_portfolio/views/footer/footer_scr.dart';
 import 'package:admin_portfolio/views/intro/intro_scr.dart';
 import 'package:admin_portfolio/views/root/components/side_bar_tile.dart';
 import 'package:admin_portfolio/views/work/work_scr.dart';
@@ -20,8 +21,8 @@ class _RootScreenState extends State<RootScreen> {
   String currentPage = 'Intro';
   bool doLogOut = false;
 
-  Widget getPage(String v){
-    switch(v){
+  Widget getPage(String v) {
+    switch (v) {
       case "Intro":
         return const IntroScreen();
       case "About":
@@ -32,6 +33,8 @@ class _RootScreenState extends State<RootScreen> {
         return const WorkScreen();
       case "Contacts":
         return const ContactScreen();
+      case "Footer":
+        return const FooterScreen();
       default:
         return const IntroScreen();
     }
@@ -178,6 +181,18 @@ class _RootScreenState extends State<RootScreen> {
                           onTap: () {
                             setState(() {
                               currentPage = 'Contacts';
+                            });
+                          }),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      SideBarTile(
+                          title: "Footer",
+                          currentPage: currentPage,
+                          iconData: Icons.landscape_outlined,
+                          onTap: () {
+                            setState(() {
+                              currentPage = 'Footer';
                             });
                           }),
                       const SizedBox(
