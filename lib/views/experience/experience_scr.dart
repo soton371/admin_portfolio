@@ -1,13 +1,25 @@
 import 'package:admin_portfolio/configs/app_colors.dart';
 import 'package:admin_portfolio/configs/app_sizes.dart';
 import 'package:admin_portfolio/configs/app_text_style.dart';
+import 'package:admin_portfolio/utilities/date_formatter.dart';
 import 'package:admin_portfolio/widgets/app_button.dart';
+import 'package:admin_portfolio/widgets/app_dialog.dart';
 import 'package:admin_portfolio/widgets/app_text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ExperienceScreen extends StatelessWidget {
+class ExperienceScreen extends StatefulWidget {
   const ExperienceScreen({super.key});
+
+  @override
+  State<ExperienceScreen> createState() => _ExperienceScreenState();
+}
+
+class _ExperienceScreenState extends State<ExperienceScreen> {
+
+  TextEditingController organizationCon=TextEditingController(),roleCon=TextEditingController(),joinDateCon=TextEditingController(),lastDateCon=TextEditingController(), notesCon=TextEditingController();
+  List<String> notes = [];
+  int index = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -28,42 +40,82 @@ class ExperienceScreen extends StatelessWidget {
               child: Padding(
                   padding: const EdgeInsets.all(AppSizes.bodyPadding),
                   child: Column(children: [
-                    const AppTextField(
+                     AppTextField(
                       label: "Company Name",
                       hint: "Enter your company name",
+                      controller: organizationCon,
                     ),
                     const SizedBox(
                       height: AppSizes.bodyPadding,
                     ),
-                    const AppTextField(
+                     AppTextField(
                       label: "Job Title",
                       hint: "Enter your job title",
+                      controller: roleCon,
                     ),
                     const SizedBox(
                       height: AppSizes.bodyPadding,
                     ),
-                    const Row(
+                    Row(
                       children: [
                         Expanded(
-                          child: AppTextField(
-                            label: "Join Date",
-                            hint: "MM/YYYY",
-                            suffixIcon: Icon(
-                              CupertinoIcons.calendar,
-                              color: AppColors.hint,
+                          child: InkWell(
+                            onTap: ()async{
+                              final selected = await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime.now().subtract(const Duration(days: 365*10)),
+                                  lastDate: DateTime.now()
+                              );
+
+                              if (selected != null) {
+                                setState(() {
+                                  joinDateCon.text = formatMonthYear(selected);
+                                });
+                              }
+                            },
+                            child: const IgnorePointer(
+                              child: AppTextField(
+                                label: "Join Date",
+                                hint: "MM/YYYY",
+                                suffixIcon: Icon(
+                                  CupertinoIcons.calendar,
+                                  color: AppColors.hint,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: AppSizes.bodyPadding + 5,
                         ),
                         Expanded(
-                          child: AppTextField(
-                            label: "Join Date",
-                            hint: "MM/YYYY",
-                            suffixIcon: Icon(
-                              CupertinoIcons.calendar,
-                              color: AppColors.hint,
+                          child: InkWell(
+                            onTap: ()async{
+
+                              final selected = await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime.now().subtract(const Duration(days: 365*10)),
+                                  lastDate: DateTime.now()
+                              );
+
+                              if (selected != null) {
+                                setState(() {
+                                  lastDateCon.text = formatMonthYear(selected);
+                                });
+                              }
+                            },
+                            child: IgnorePointer(
+                              child: AppTextField(
+                                label: "Last Date",
+                                hint: "MM/YYYY",
+                                controller: lastDateCon,
+                                suffixIcon: const Icon(
+                                  CupertinoIcons.calendar,
+                                  color: AppColors.hint,
+                                ),
+                              ),
                             ),
                           ),
                         ),
@@ -72,20 +124,39 @@ class ExperienceScreen extends StatelessWidget {
                     const SizedBox(
                       height: AppSizes.bodyPadding,
                     ),
-                    const AppTextField(
+                     AppTextField(
                       label: "Notes",
                       hint: "Enter your note",
-                      suffixIcon: Icon(
-                        Icons.add,
-                        color: AppColors.hint,
+                      controller: notesCon,
+                      suffixIcon: IconButton(
+                          onPressed: (){
+                            final n = notesCon;
+                            if(n.text.isEmpty || notes.contains(n.text)){
+                              debugPrint("already added");
+                              appDialog(context,content: 'Already added this note.', actions: [
+                                TextButton(onPressed: ()=>Navigator.pop(context), child: const Text("OK"))
+                              ]);
+                            }else{
+                              notes.add(n.text);
+                              notesCon.clear();
+                              setState(() {
+
+                              });
+                            }
+                          },
+                          icon: const Icon(
+                            Icons.add,
+                            color: AppColors.hint,
+                          )
                       ),
                     ),
                     const SizedBox(
                       height: AppSizes.bodyPadding,
                     ),
                     //here list view builder
+                    notes.isEmpty?const SizedBox():
                     ListView.builder(
-                        itemCount: 2,
+                        itemCount: notes.length,
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {

@@ -10,7 +10,8 @@ class AppTextField extends StatelessWidget {
       required this.label,
       required this.hint,
       this.maxLines = 1,
-      this.suffixIcon
+      this.suffixIcon,
+        this.controller
       });
 
   final String label, hint;
@@ -18,6 +19,7 @@ class AppTextField extends StatelessWidget {
   final Widget? suffixIcon;
   // final VoidCallback? onPressed;
   // final IconData? icon;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +48,7 @@ class AppTextField extends StatelessWidget {
             Expanded(
               flex: 4,
               child: TextField(
+                controller: controller,
                 maxLines: maxLines,
                 decoration: InputDecoration(
                   suffixIcon: suffixIcon,
