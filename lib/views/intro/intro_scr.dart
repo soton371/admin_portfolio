@@ -39,12 +39,25 @@ class IntroScreen extends StatelessWidget {
                     height: AppSizes.bodyPadding*3,
                   ),
 
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: AppButton(
-                        name: "Submit",
-                        onPressed: (){}
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      AppButton(
+                          btnColor: AppColors.button2,
+                          name: "Delete",
+                          txtColor: AppColors.seed,
+                          elevation: AppSizes.elevation,
+                          onPressed: (){}
+                      ),
+
+                      const SizedBox(width: AppSizes.bodyPadding,),
+
+                      AppButton(
+                          name: "Submit",
+                          onPressed: (){}
+                      ),
+
+                    ],
                   )
 
                 ],

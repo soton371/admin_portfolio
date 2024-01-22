@@ -7,4 +7,5 @@ class AppColors{
   static const Color scaffoldBg = Color(0xfff6f6f6);
   static const Color background = Color(0xfffafdfd);
   static const Color button = Color(0xff404040);
+  static const Color button2 = Color(0xfff4f4f4);
 }
