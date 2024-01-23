@@ -11,7 +11,7 @@ String introModelToJson(IntroModel data) => json.encode(data.toJson());
 class IntroModel {
   bool? isSuccess;
   String? message;
-  Data? data;
+  IntroData? data;
 
   IntroModel({
     this.isSuccess,
@@ -22,7 +22,7 @@ class IntroModel {
   factory IntroModel.fromJson(Map<String, dynamic> json) => IntroModel(
     isSuccess: json["isSuccess"],
     message: json["message"],
-    data: json["data"] == null ? null : Data.fromJson(json["data"]),
+    data: json["data"] == null ? null : IntroData.fromJson(json["data"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -32,14 +32,14 @@ class IntroModel {
   };
 }
 
-class Data {
+class IntroData {
   Id? id;
   String? introOfName;
   String? name;
   String? whoAreYou;
   String? shortBio;
 
-  Data({
+  IntroData({
     this.id,
     this.introOfName,
     this.name,
@@ -47,7 +47,7 @@ class Data {
     this.shortBio,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory IntroData.fromJson(Map<String, dynamic> json) => IntroData(
     id: json["_id"] == null ? null : Id.fromJson(json["_id"]),
     introOfName: json["introOfName"],
     name: json["name"],

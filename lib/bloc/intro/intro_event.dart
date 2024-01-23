@@ -6,7 +6,6 @@ abstract class IntroEvent extends Equatable {
   List<Object> get props => [];
 }
 
-// class FetchIntro extends IntroEvent {}
 class AddIntro extends IntroEvent {}
 class UpdateIntro extends IntroEvent {}
 class DeleteIntro extends IntroEvent {}
