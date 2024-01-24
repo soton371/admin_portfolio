@@ -8,8 +8,8 @@ Future<IntroData?> fetchIntroService()async{
   final Uri url = Uri.parse(AppUrls.getIntro);
   try{
     final service = await http.get(url, headers: header); //check header remove
-    final response2 = introModelFromJson(service.body);
-    return response2.data;
+    final response = introModelFromJson(service.body);
+    return response.data;
   }catch(e){
     logger.e("fetchIntroService e: $e");
     return null;

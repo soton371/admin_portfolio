@@ -1,7 +1,10 @@
 import 'package:admin_portfolio/configs/app_colors.dart';
 import 'package:admin_portfolio/configs/app_sizes.dart';
+import 'package:admin_portfolio/models/intro_model.dart';
+import 'package:admin_portfolio/services/intro/delete_intro_ser.dart';
 import 'package:admin_portfolio/services/intro/fetch_intro_ser.dart';
 import 'package:admin_portfolio/widgets/app_button.dart';
+import 'package:admin_portfolio/widgets/app_dialog.dart';
 import 'package:admin_portfolio/widgets/app_text_field.dart';
 import 'package:flutter/material.dart';
 
@@ -18,8 +21,10 @@ class _IntroScreenState extends State<IntroScreen> {
   TextEditingController introOfNameCon = TextEditingController();
   TextEditingController bioCon = TextEditingController();
 
+  IntroData? data;
+
   Future<void> getData()async{
-    final data = await fetchIntroService();
+    data = await fetchIntroService();
     nameCon = TextEditingController(text: data?.name);
     whoCon = TextEditingController(text: data?.whoAreYou);
     introOfNameCon = TextEditingController(text: data?.introOfName);
@@ -74,12 +79,26 @@ class _IntroScreenState extends State<IntroScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
+                      data==null?const SizedBox():
                       AppButton(
                           btnColor: AppColors.button2,
                           name: "Delete",
                           txtColor: AppColors.seed,
                           elevation: AppSizes.elevation,
-                          onPressed: (){}
+                          onPressed: ()async{
+                            await deleteIntroService().then((value) {
+                              if(value){
+                                //delete success alert
+                                getData();
+                                appDialog(context,content: "Successfully delete intro",actions: [
+                                  TextButton(onPressed: ()=> Navigator.pop(context), child: const Text("Dismiss"))
+                                ]);
+                              }else{
+                                //delete failed alert
+                                appDialog(context,content: "Failed to delete intro");
+                              }
+                            });
+                          }
                       ),
 
                       const SizedBox(width: AppSizes.bodyPadding,),
