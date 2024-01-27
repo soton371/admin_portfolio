@@ -1,8 +1,8 @@
 import 'package:admin_portfolio/configs/app_colors.dart';
+import 'package:admin_portfolio/configs/app_constants.dart';
 import 'package:admin_portfolio/configs/app_sizes.dart';
 import 'package:admin_portfolio/models/intro_model.dart';
-import 'package:admin_portfolio/services/intro/delete_intro_ser.dart';
-import 'package:admin_portfolio/services/intro/fetch_intro_ser.dart';
+import 'package:admin_portfolio/services/intro/intro_ser.dart';
 import 'package:admin_portfolio/widgets/app_button.dart';
 import 'package:admin_portfolio/widgets/app_dialog.dart';
 import 'package:admin_portfolio/widgets/app_text_field.dart';
@@ -30,6 +30,32 @@ class _IntroScreenState extends State<IntroScreen> {
     introOfNameCon = TextEditingController(text: data?.introOfName);
     bioCon = TextEditingController(text: data?.shortBio);
     setState(() {
+    });
+  }
+
+  Future<void> addData()async{
+    Map<String, String> payload = {
+      "introOfName": introOfNameCon.text.trim(),
+      "name": nameCon.text.trim(),
+      "whoAreYou": whoCon.text.trim(),
+      "shortBio": bioCon.text.trim()
+    };
+
+    logger.f("my payload: $payload");
+
+    await addIntroService(payload).then((value) {
+      if(value){
+        //delete success alert
+        getData();
+        appDialog(context,content: "Successfully add intro",actions: [
+          TextButton(onPressed: ()=> Navigator.pop(context), child: const Text("Dismiss"),)
+        ]);
+      }else{
+        //delete failed alert
+        appDialog(context,content: "Failed to add intro",actions: [
+          TextButton(onPressed: ()=> Navigator.pop(context), child: const Text("Dismiss"),)
+        ]);
+      }
     });
   }
 
@@ -107,7 +133,7 @@ class _IntroScreenState extends State<IntroScreen> {
 
                       AppButton(
                           name: "Submit",
-                          onPressed: (){}
+                          onPressed: addData
                       ),
 
                     ],

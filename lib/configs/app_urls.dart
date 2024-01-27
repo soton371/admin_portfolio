@@ -3,4 +3,6 @@ class AppUrls{
 
   static const getIntro = "$baseUrl/get_intro";
   static const deleteIntro = "$baseUrl/delete_intro";
+  static const addIntro = "$baseUrl/add_intro";
 }
+
