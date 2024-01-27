@@ -91,11 +91,13 @@ class _IntroScreenState extends State<IntroScreen> {
                                 //delete success alert
                                 getData();
                                 appDialog(context,content: "Successfully delete intro",actions: [
-                                  TextButton(onPressed: ()=> Navigator.pop(context), child: const Text("Dismiss"))
+                                  TextButton(onPressed: ()=> Navigator.pop(context), child: const Text("Dismiss"),)
                                 ]);
                               }else{
                                 //delete failed alert
-                                appDialog(context,content: "Failed to delete intro");
+                                appDialog(context,content: "Failed to delete intro",actions: [
+                                  TextButton(onPressed: ()=> Navigator.pop(context), child: const Text("Dismiss"),)
+                                ]);
                               }
                             });
                           }
